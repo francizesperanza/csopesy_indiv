@@ -1,2 +1,2 @@
 # csopesy_indiv
-Franciz Esperanza's repositories for CSOPESY Individual Assignments
+Franciz Esperanza's repository for CSOPESY Individual Assignments
