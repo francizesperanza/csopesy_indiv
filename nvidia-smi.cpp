@@ -8,10 +8,10 @@
 
 void set_cursor_loc(int x, int y) {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    COORD pos;
-    pos.X = x;
-    pos.Y = y;
-    SetConsoleCursorPosition(hConsole, pos);
+    COORD loc;
+    loc.X = x;
+    loc.Y = y;
+    SetConsoleCursorPosition(hConsole, loc);
 }
 
 COORD get_cursor_loc() {
@@ -122,23 +122,25 @@ void print_gpu_summary() {
     std::string mig_m = "N/A";
 
 
-    std::cout << "+-----------------------------------------------------------------------------------------+";
+    std::cout << "+-----------------------------------------------------------------------------------------+" << std::endl;
 
-    set_cursor_loc(0, start_y + 1);
+    starting_pos = get_cursor_loc();
+    start_y = starting_pos.Y;
+
     std::cout << "| NVIDIA-SMI ";
     write_console(smi_version, 22, "left");
 
-    set_cursor_loc(36, start_y + 1);
+    set_cursor_loc(36, start_y);
     std::cout << "Driver Version: ";
     write_console(driver_version, 14, "left");
 
-    set_cursor_loc(67, start_y + 1);
+    set_cursor_loc(67, start_y);
     std::cout << "CUDA Version: ";
     write_console(cuda_version, 7, "left");
 
-    set_cursor_loc(90, start_y + 1);
-    std::cout << "|";
-    set_cursor_loc(0, start_y + 2);
+    set_cursor_loc(90, start_y);
+    std::cout << "|" << std::endl;
+
     std::cout << "|-----------------------------------------+------------------------+----------------------+" << std::endl;
 
     std::cout << "| GPU  Name                     TCC/WDDM  | Bus-Id          Disp.A | Volatile Uncorr. ECC |" << std::endl;
@@ -146,13 +148,17 @@ void print_gpu_summary() {
     std::cout << "|                                         |                        |               MIG M. |" << std::endl;
     std::cout << "|=========================================+========================+======================|" << std::endl;
 
+    starting_pos = get_cursor_loc();
+    start_y = starting_pos.Y;
+
     std::cout << "| ";
+    set_cursor_loc(2, start_y);
     write_console(gpu_number, 3, "right");
 
-    set_cursor_loc(7, start_y + 7);
+    set_cursor_loc(7, start_y);
     write_console(gpu_name, 23, "left");
 
-    set_cursor_loc(31, start_y + 7);
+    set_cursor_loc(31, start_y);
     write_console(gpu_model, 9, "right");
 
     std::cout << "  | ";
@@ -163,14 +169,17 @@ void print_gpu_summary() {
     write_console(uncorr_ecc, 20, "right");
     std::cout << " |" << std::endl;
 
+    starting_pos = get_cursor_loc();
+    start_y = starting_pos.Y;
+
     std::cout << "| ";
     write_console(fan, 4, "left");
     std::cout << " ";
     write_console(temp, 4, "right");
-    set_cursor_loc(15, start_y + 8);
+    set_cursor_loc(15, start_y);
     write_console(perf, 2, "right");
 
-    set_cursor_loc(28, start_y + 8);
+    set_cursor_loc(28, start_y);
     write_console(power_usage, 5, "right");
     std::cout << " / ";
     write_console(power_cap, 5, "right");
@@ -181,16 +190,19 @@ void print_gpu_summary() {
     write_console(memory_cap, 9, "right");
     std::cout << " |";
 
-    set_cursor_loc(72, start_y + 8);
+    set_cursor_loc(72, start_y);
     write_console(volatile_cpu_util, 4, "right");
-    set_cursor_loc(79, start_y + 8);
+    set_cursor_loc(79, start_y);
     write_console(compute_m, 10, "right");
     std::cout << " |" << std::endl;
 
+    starting_pos = get_cursor_loc();
+    start_y = starting_pos.Y;
+
     std::cout << "|";
-    set_cursor_loc(42, start_y + 9);
+    set_cursor_loc(42, start_y);
     std::cout << "|";
-    set_cursor_loc(67, start_y + 9);
+    set_cursor_loc(67, start_y);
     std::cout << "| ";
     write_console(uncorr_ecc, 20, "right");
     std::cout << " |" << std::endl;
@@ -215,38 +227,40 @@ void print_processes_list() {
     std::cout << "|        ID   ID                                                               Usage      |\n";
     std::cout << "|=========================================================================================|\n";
     
-    COORD starting_pos = get_cursor_loc();
-
-    int start_x = starting_pos.X;
-    int start_y = starting_pos.Y;
+    COORD starting_pos;
 
     for (int i = 0; i < 5; i++) {
+
+        starting_pos = get_cursor_loc();
+
+        int start_x = starting_pos.X;
+        int start_y = starting_pos.Y;
+
         std::cout << "|";
 
-        set_cursor_loc(3, start_y + i);
+        set_cursor_loc(3, start_y);
         write_console(processes[i][0], 3, "right");
 
-        set_cursor_loc(9, start_y + i);
+        set_cursor_loc(9, start_y);
         write_console(processes[i][1], 3, "left");
 
-        set_cursor_loc(14, start_y + i);
+        set_cursor_loc(14, start_y);
         write_console(processes[i][2], 3, "left");
 
-        set_cursor_loc(18, start_y + i);
+        set_cursor_loc(18, start_y);
         write_console(processes[i][3], 9, "right");
 
-        set_cursor_loc(28, start_y + i);
+        set_cursor_loc(28, start_y);
         write_console(processes[i][4], 6, "right");
 
-        set_cursor_loc(37, start_y + i);
+        set_cursor_loc(37, start_y);
         write_process_name(processes[i][5], 38, "left");
 
-        set_cursor_loc(81, start_y + i);
+        set_cursor_loc(81, start_y);
         write_console(processes[i][6], 3, "right");
 
-        set_cursor_loc(90, start_y + i);
+        set_cursor_loc(90, start_y);
         std::cout << "|" << std::endl;
-        std::cout.flush();
     }
 
     std::cout << "+-----------------------------------------------------------------------------------------+" << std::endl;
