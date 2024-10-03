@@ -14,6 +14,9 @@ int main()
         if (input == "nvidia-smi") {
             print_console_layout();
         }
+        else if (input == "marquee") {
+            
+        }
         else if (input == "exit") {
             std::cout << "Program exiting..." << std::endl;
         }

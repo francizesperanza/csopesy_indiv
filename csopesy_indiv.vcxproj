@@ -121,10 +121,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="consoleHandler.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="marqueeConsole.cpp" />
+    <ClCompile Include="marqueeWorkerThread.cpp" />
     <ClCompile Include="nvidia-smi.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="consoleManager.h" />
+    <ClInclude Include="marqueeConsole.h" />
+    <ClInclude Include="marqueeWorkerThread.h" />
     <ClInclude Include="nvidia-smi.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
