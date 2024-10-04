@@ -121,7 +121,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="consoleHandler.cpp" />
+    <ClCompile Include="consoleManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="marqueeConsole.cpp" />
     <ClCompile Include="marqueeWorkerThread.cpp" />
